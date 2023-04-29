@@ -6,13 +6,13 @@ export const registerUser = async (req, res) => {
   //const { username, password, firstname, lastname } = req.body;
 
   const salt = await bcrypt.genSalt(10);
-  const hashedPass = await bcrypt.hash(password, salt);
+  const hashedPass = await bcrypt.hash(req.body.password, salt);
   req.body.password = hashedPass
   const newUser = new UserModel(req.body);
   const { username } = req.body;
   try {
     //addition new
-    const oldUser = await UserModel.findOne(username)
+    const oldUser = await UserModel.findOne({username})
     if (oldUser) {
       return res.status(400).json({ message: "user already exists" })
     }
@@ -45,6 +45,7 @@ export const loginUser = async (req, res) => {
           process.env.JWT_KEY,
           {expiresIn: "1h"}
         )
+        res.status(200).json("Successfully login!")
       }
     } else {
       res.status(404).json('User not found')
