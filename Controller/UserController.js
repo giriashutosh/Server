@@ -52,7 +52,7 @@ export const updateUser = async (req, res) => {
                 process.env.JWT_KEY,
                 {expiresIn: '1h'})
             console.log({user, token})
-            res.status(200).json({user, token});
+            res.status(200).json(user);
         } catch (error) {
             res.status(500).json(error);
         }
