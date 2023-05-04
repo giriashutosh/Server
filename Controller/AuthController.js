@@ -46,7 +46,7 @@ export const loginUser = async (req, res) => {
           {expiresIn: "1h"}
         )
         //res.status(200).json("Successfully login!")
-        res.status(200).json(user)
+        res.status(200).json({user,token})
       }
     } else {
       res.status(404).json('User not found')
